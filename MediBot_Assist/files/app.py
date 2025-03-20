@@ -14,15 +14,13 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Load environment variables
-load_dotenv()
+# Configure API keys directly
+GEMINI_API_KEY = "AIzaSyAZ2u9bW-QXxKMFLQSI727jdJqbWQuRARY"
+YOUTUBE_API_KEY = "AIzaSyCJ6AIcNVeJUmLpN_lVacADKXucXN3mxvA"
 
-# Configure API keys
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
-
+# Ensure API keys are present
 if not all([GEMINI_API_KEY, YOUTUBE_API_KEY]):
-    st.error("Required API keys not found. Please check your .env file.")
+    st.error("Required API keys not found.")
     st.stop()
 
 # Initialize APIs
