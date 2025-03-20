@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Login to AI Medical Assistant</title>
+</head>
+<body>
+    <div class="container" id="container">
+        <!-- Sign Up Form -->
+        <div class="form-container sign-up">
+            <form id="signupForm">
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icons" id="gmailSignup"><i class='bx bxl-google'></i></a>
+                </div>
+                <span>Register with E-mail</span>
+                <input type="text" id="signupName" placeholder="Name">
+                <input type="email" id="signupEmail" placeholder="Enter E-mail">
+                <input type="password" id="signupPassword" placeholder="Enter Password">
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+
+        <!-- Sign In Form -->
+        <div class="form-container sign-in">
+            <form id="signinForm">
+                <h1>Sign In</h1>
+                <div class="social-icons">
+                    <a href="#" class="icons" id="gmailSignin"><i class='bx bxl-google'></i></a>
+                </div>
+                <span>Login With Email & Password</span>
+                <input type="email" id="signinEmail" placeholder="Enter E-mail">
+                <input type="password" id="signinPassword" placeholder="Enter Password">
+                <a href="#">Forget Password?</a>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+
+        <!-- Toggle Container -->
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome To<br>AI Medical Assistant</h1>
+                    <p>Sign in With ID & Password</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hey User</h1>
+                    <p>Don't Have an Account?<br>Sign up here</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
