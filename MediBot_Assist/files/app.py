@@ -14,13 +14,15 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Configure API keys directly
-GEMINI_API_KEY = "AIzaSyAZ2u9bW-QXxKMFLQSI727jdJqbWQuRARY"
-YOUTUBE_API_KEY = "AIzaSyCJ6AIcNVeJUmLpN_lVacADKXucXN3mxvA"
+# Load environment variables
+load_dotenv()
 
-# Ensure API keys are present
+# Configure API keys
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
+
 if not all([GEMINI_API_KEY, YOUTUBE_API_KEY]):
-    st.error("Required API keys not found.")
+    st.error("Required API keys not found. Please check your .env file.")
     st.stop()
 
 # Initialize APIs
@@ -40,14 +42,10 @@ class MediAIAssistant:
         """Add custom CSS styling for medical interface."""
         st.markdown("""
             <style>
-                    
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
             
             .stApp {
-                   
-  background: linear-gradient(to right, #ff7e5f, #feb47b, #86a8e7, #7f7fd5);
-
-
+                background: linear-gradient(to right, #ff7e5f, #feb47b, #86a8e7, #7f7fd5);
                 font-family: 'Poppins', sans-serif;
             }
             
@@ -71,55 +69,43 @@ class MediAIAssistant:
             .hero-subtitle {
                 font-size: 1.2rem;
                 opacity: 0.9;
-                 text-align: center;
+                text-align: center;
                 max-width: 700px;
                 margin: 0 auto;
             }
-.navigation-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    margin: 1rem 0;
-    transition: all 0.1s ease-in-out;
-    cursor: pointer;
-    border-left: 6px solid #3b82f6;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Glowing Gradient Effect */
-.navigation-card::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background-image: linear-gradient(90deg, #84fab0, #8fd3f4);
-
-
-
-
-    animation: glow 5s linear infinite;
-    opacity: 0.6;
-    z-index: -1;
-}
-
-/* Hover Effect */
-.navigation-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.5);
-    background: linear-gradient(45deg, #3b82f6, #8e44ad);
-}
-
-/* Glowing Animation */
-@keyframes glow {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-            
+            .navigation-card {
+                background: white;
+                padding: 2rem;
+                border-radius: 10px;
+                margin: 1rem 0;
+                transition: all 0.1s ease-in-out;
+                cursor: pointer;
+                border-left: 6px solid #3b82f6;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                position: relative;
+                overflow: hidden;
+            }
+            .navigation-card::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background-image: linear-gradient(90deg, #84fab0, #8fd3f4);
+                animation: glow 5s linear infinite;
+                opacity: 0.6;
+                z-index: -1;
+            }
+            .navigation-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.5);
+                background: linear-gradient(45deg, #3b82f6, #8e44ad);
+            }
+            @keyframes glow {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
             .medical-container {
                 background: white;
                 padding: 2rem;
@@ -129,7 +115,6 @@ class MediAIAssistant:
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
                 animation: slideIn 0.5s ease-out;
             }
-            
             .emergency-warning {
                 background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
                 color: white;
@@ -144,7 +129,6 @@ class MediAIAssistant:
                 box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
                 animation: pulse 2s infinite;
             }
-            
             .remedy-card {
                 background: white;
                 padding: 1.5rem;
@@ -153,47 +137,54 @@ class MediAIAssistant:
                 border-left: 6px solid #10b981;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             }
-            
             .remedy-title {
                 color: #10b981;
                 font-size: 1.25rem;
                 font-weight: 600;
                 margin-bottom: 1rem;
             }
-            
+            .health-tip-card {
+                background: white;
+                padding: 1.5rem;
+                border-radius: 16px;
+                margin: 1rem 0;
+                border-left: 6px solid #f59e0b;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            }
+            .health-tip-title {
+                color: #f59e0b;
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
             .video-section {
                 margin-top: 2rem;
                 padding: 2rem;
-                background:#ff7e5f, #feb47b;
+                background: #f8fafc;
                 border-radius: 16px;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             }
-            
             .video-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                 gap: 1.5rem;
                 margin-top: 1rem;
             }
-            
             .video-card {
                 background: #f8fafc;
                 border-radius: 12px;
                 overflow: hidden;
                 transition: all 0.3s ease;
             }
-            
             .video-card:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             }
-            
             .video-title {
                 padding: 1rem;
                 font-weight: 500;
                 color: #1e40af;
             }
-            
             .first-aid-kit {
                 position: fixed;
                 bottom: 20px;
@@ -207,7 +198,6 @@ class MediAIAssistant:
                 border-left: 6px solid #dc2626;
                 animation: slideIn 0.3s ease-out;
             }
-            
             .first-aid-kit-toggle {
                 position: fixed;
                 bottom: 20px;
@@ -226,17 +216,14 @@ class MediAIAssistant:
                 transition: all 0.3s ease;
                 z-index: 999;
             }
-            
             @keyframes fadeIn {
                 from { opacity: 0; transform: translateY(20px); }
                 to { opacity: 1; transform: translateY(0); }
             }
-            
             @keyframes slideIn {
                 from { opacity: 0; transform: translateX(20px); }
                 to { opacity: 1; transform: translateX(0); }
             }
-            
             @keyframes pulse {
                 0% { opacity: 0.6; }
                 50% { opacity: 1; }
@@ -344,6 +331,38 @@ class MediAIAssistant:
         [Important information about when to seek immediate medical attention]
         """
         return self.safe_generate_content(prompt)
+
+    def generate_health_tips(self):
+        """Generate general health tips using AI."""
+        prompt = f"""
+        As a professional health and wellness expert, provide a comprehensive set of general health tips covering nutrition, exercise, sleep, and stress management. Format the response as:
+
+        **Nutrition Tips:**
+        - [Tip 1]
+        - [Tip 2]
+        - [Tip 3]
+
+        **Exercise Tips:**
+        - [Tip 1]
+        - [Tip 2]
+        - [Tip 3]
+
+        **Sleep Tips:**
+        - [Tip 1]
+        - [Tip 2]
+        - [Tip 3]
+
+        **Stress Management Tips:**
+        - [Tip 1]
+        - [Tip 2]
+        - [Tip 3]
+
+        **General Wellness Notes:**
+        - [Note 1]
+        - [Note 2]
+        """
+        return self.safe_generate_content(prompt)
+
     def get_emergency_videos(self, emergency_type):
         """Fetch relevant emergency first aid videos from YouTube."""
         try:
@@ -435,16 +454,12 @@ class MediAIAssistant:
            <center> <div class="hero-section">
                 <h1 class="hero-title"> MediBot Assistant</h1>
             <center>   <p class="hero-subtitle">
-                    Your intelligent medical companion for emergency guidance, medication analysis, and natural remedies
+                    Your intelligent medical companion for emergency guidance, medication analysis, natural remedies, and health tips
                 </p><center>
             </div></center>
         """, unsafe_allow_html=True)
 
-
-
         st.image("ai3.jpg", use_container_width=True)
-
-
 
         col1, col2, col3 = st.columns(3)
 
@@ -545,7 +560,6 @@ class MediAIAssistant:
             <div class="medical-container">
                 <h2>💊 Medicine Analysis AI</h2>
                 <p>Enter any medication name for comprehensive AI-powered analysis of its properties, uses, and precautions.</p>
-                    
             </div>
         """, unsafe_allow_html=True)
 
@@ -631,6 +645,28 @@ class MediAIAssistant:
                                             <div class="video-title">{video['title'][:50]}...</div>
                                         </div>
                                     """, unsafe_allow_html=True)
+
+    def render_health_tips_page(self):
+        """Render the health tips page."""
+        st.markdown("""
+            <div class="medical-container">
+                <h2>🩺 Health Tips AI</h2>
+                <p>Get expert-recommended tips for maintaining overall health and wellness.</p>
+            </div>
+        """, unsafe_allow_html=True)
+
+        generate_tips_button = st.button("Generate Health Tips", type="primary", key="health_tips_generate")
+
+        if generate_tips_button:
+            health_tips = self.generate_health_tips()
+            if health_tips:
+                st.markdown("""
+                    <div class="health-tip-card">
+                        <h3 class="health-tip-title">🩺 General Health Tips</h3>
+                """, unsafe_allow_html=True)
+                st.markdown(health_tips)
+                st.markdown("</div>", unsafe_allow_html=True)
+
     def render_navigation(self):
         """Render the navigation menu."""
         st.sidebar.markdown("## 📍DashBoard")
@@ -639,7 +675,7 @@ class MediAIAssistant:
             "🚨 Emergency Response": ("emergency", "sidebar_emergency"),
             "💊 Medicine Analysis": ("medicine", "sidebar_medicine"),
             "🌿 Natural Remedies": ("remedies", "sidebar_remedies"),
-            # "🚨 Doctor Consultion": ("Talk with Doctors?", "sidebar_Doctors")
+            "🩺 Health Tips": ("health_tips", "sidebar_health_tips"),
         }
         
         for label, (page, key) in nav_options.items():
@@ -647,6 +683,7 @@ class MediAIAssistant:
                 st.session_state.page = page
                 st.rerun()
         st.sidebar.markdown("---")
+
     def render_footer(self):
         """Render the application footer."""
         st.markdown("""
@@ -659,9 +696,7 @@ class MediAIAssistant:
                 <center><div class="footer-copyright">
                     <p>© 2025 MediBot Assistant -- Powered By Batch-03</p>
                     <p style="font-size: 0.8rem; color: #a0aec0; margin-top: 0.5rem;">
-                     
-
-            </div>
+                </div>
         """, unsafe_allow_html=True)
 
     def run(self):
@@ -676,7 +711,8 @@ class MediAIAssistant:
             self.render_medicine_page()
         elif st.session_state.page == 'remedies':
             self.render_remedies_page()
-
+        elif st.session_state.page == 'health_tips':
+            self.render_health_tips_page()
 
         self.render_footer()
 
