@@ -121,6 +121,8 @@
             border-right: 1px solid var(--border-color);
             transition: transform 0.3s ease-in-out;
             z-index: 1000;
+            display: flex; /* Use flexbox for vertical alignment */
+            flex-direction: column; /* Stack items vertically */
         }
 
         .sidebar.open {
@@ -242,14 +244,14 @@
         /* Slideshow Styles */
         .slideshow-container {
             position: relative;
-            width: 100%;
+            width: 150%;
             max-width: 1200px;
-            margin: 2rem auto 0;
-            height: 400px;
+            height: 300px; /* Default height */
             overflow: hidden;
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
         }
+
 
         .slide {
             position: absolute;
@@ -597,6 +599,86 @@
             margin: 0.5rem 0;
         }
 
+        /* New styles for sidebar image */
+        .sidebar-image-container {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            flex-shrink: 0; /* Prevent it from shrinking */
+        }
+
+        .sidebar-image {
+            max-width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px;
+            display: block; /* Remove extra space below image */
+            margin: 0 auto; /* Center the image */
+        }
+
+        /* Styles for News Section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            text-decoration: none; /* For link styling */
+            color: inherit; /* Inherit text color */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 180px; /* Fixed height for consistency */
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .news-content {
+            padding: 1rem;
+            flex-grow: 1; /* Allow content to take available space */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .news-content h3 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .news-content p {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.75rem;
+            flex-grow: 1;
+        }
+
+        .news-content .news-source-date {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -678,6 +760,7 @@
         <button class="nav-btn" onclick="showSection('remedies')" aria-label="Natural Remedies"><span>🌿</span> Natural Remedies</button>
         <button class="nav-btn" onclick="showSection('health_tips')" aria-label="Health Tips"><span>🩺</span> Health Tips</button>
         <button class="nav-btn" onclick="showSection('balanced_diet')" aria-label="Balanced Diet"><span>🍽️</span> Balanced Diet</button>
+        <button class="nav-btn" onclick="showSection('news')" aria-label="Healthcare News"><span>📰</span> News</button>
     </nav>
 
     <button class="toggle-btn open" id="toggle-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar navigation"><</button>
@@ -685,13 +768,13 @@
     <main class="container shifted" id="main-container">
         <section id="home" aria-labelledby="home-title">
             <div class="hero-section">
-                <h1 class="hero-title" id="home-title">MediBot🤖Assistant</h1>
+                <h1 class="hero-title" id="home-title">MediBot-Assistant</h1>
                 <p class="hero-subtitle">Your professional medical companion for emergency guidance, medication analysis, natural remedies, and wellness advice.</p>
                 <!-- Slideshow Container --></div>
                 <div class="slideshow-container">
-                    <div class="slide"><img src="https://media-hosting.imagekit.io/4aaa323e85d64ba2/ai3.jpg?Expires=1838825739&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=iBBCki0M45qfwWE62wovlaw4RHT9WNmUEIv-bMM-YhQHRJC13sivb9-8AyUZh~2j1fT2IqJLxWTcwpqDZLMGzWN1Z-UwJsANpuDNzIyYaGFzXaGwAQSCaUZeS5vmoDIHiW~08pKVliTUtVMkP1Go6XE1HdlXbSdQjN4Q7geqQ00i0xJBH1IVi4-ndazkQSPfnFpy1~8ozjDmiOWp7lz1m8PWjOooVmnABPeu6Z0fEPlDfyMZOWtMhWGSuYlGyliR9I9YdrZY1U3tv9VSE5k--CJATiO1v3KVaHHC4JfM7c7ButKX8uC~H9cKqPNGICCT8fwSn6YEFf0QGvlAIU4Y6g" alt="Health Image 1"></div>
-                    <div class="slide"><img src="https://media-hosting.imagekit.io/4683df7a9b0f4eed/ai2.jpg?Expires=1840203753&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=blyOHcOnY0RUa9xvy3r7EZQm25gixxX5fY5fcZy~6UA1rcR1BCDHBK3wU63WBG9sfjOPknOxydKtAiNBFzB1K-K~648Ac-1p1WwioNOUM3eaztIe6F3wBLTeVmi-P8jFtRYDPw8PY3TVvuSMqplQIjfggrpk8-mHVPzrGMvonP05Qb8lR63fwl06i8puEbMn2~yMY-wKr1I4NvCJ6Zgk8EUJDVKWmLWSQOt1AYnWIjVCDIMiDBJh5OCEoG-bCLQVFFuGCNPsDxRTmXCY69mxmELEvwkL~NDfLdtEik3x0oLHYl3ztryBb2OD6fnpvBQynq6p8o17k5PqbX90pV~EEg__" alt="Health Image 2"></div>
-                    <div class="slide"><img src="https://media-hosting.imagekit.io/16256492fda646d2/ai3.webp?Expires=1840203753&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=NCTdGUAOeLoBE1Nw4-s1xqYDtmuDyAfctVkF1eznJyMAEalNMb8ARS-BqCfSN57NjJXjaTJxglCMEFUjOVABwfhYiG5HPreBnkNzgYgG0Mk5snT3L0RAq4oAN1Dy6rg0cL69wVNuQ87k4gWqDu~0mjMcDUYlE0GazU~NE5Sm6fMbpoei86xxuJ2VLaM1CR3ytrewLwDaV4GY-l-Gv7rkIk86tssrrUTnqiOqngXTn6LGU-bfnqkR0rQg6va~x~dCi1P0EMHgvXtMcG9LrVcfgtEUpi8ovIPdhOhRF7WTxXc6qy9jTUWZXUyLjV5u2YB9CKUqJo-ejpdqfBtkzwAWKw__" alt="Health Image 3"></div>
+                    <div class="slide"><img src="https://placehold.co/200x150/86a8e7/ffffff?text=AI+Health" alt="Health Image 1" width="20"></div>
+                    <div class="slide"><img src="https://placehold.co/200x150/feb47b/ffffff?text=Medical+Tech" alt="Health Image 2"></div>
+                    <div class="slide"><img src="https://placehold.co/200x150/ff7e5f/ffffff?text=Healthcare+Innovation" alt="Health Image 3"></div>
                     <div class="slideshow-nav">
                         <button class="nav-dot active" onclick="setSlide(0)"></button>
                         <button class="nav-dot" onclick="setSlide(1)"></button>
@@ -798,6 +881,15 @@
             <div id="balanced-diet-text" aria-live="polite"></div>
             <div id="balanced-diet-videos" class="video-grid" aria-label="Diet reference videos"></div>
         </section>
+
+        <!-- New Section for Health News -->
+        <section id="news" class="section" aria-labelledby="news-title">
+            <h2 id="news-title">📰 Latest Healthcare News</h2>
+            <p>Stay updated with the most recent news in healthcare.</p>
+            <div id="news-articles-container" class="news-grid" aria-live="polite">
+                <!-- News articles will be loaded here -->
+            </div>
+        </section>
     </main>
 
     <footer class="app-footer shifted" id="footer" aria-label="Footer">
@@ -811,14 +903,19 @@
 
     <script>
         // Configuration
-        const config = {
+const config = {
             GEMINI_API_URL: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
             YOUTUBE_API_URL: 'https://www.googleapis.com/youtube/v3/search',
             MAX_VIDEO_RESULTS: 3,
             GEMINI_API_KEY: "AIzaSyAZ2u9bW-QXxKMFLQSI727jdJqbWQuRARY",
             YOUTUBE_API_KEY: "AIzaSyByIqX-_-Neau9XR90el7Im3UjCHXkZ6M4",
+            MAPS_API_KEY: "AIzaSyDkUVIEwHZF6Me8fX5YBGrDNo7nIDsZWFA0",
+            // This is your new, correct GNews API Key!
+            NEWS_API_KEY: "c5d28615f046448f86af15e2b8a2f95e",
+            // This URL will now correctly use your new GNews API Key
+            NEWS_API_URL: `https://gnews.io/api/v4/search?q=healthcare&lang=en&max=9&token=${this.NEWS_API_KEY}`,
+            // New: List of images for the sidebar
         };
-
         // State
         let currentTheme = localStorage.getItem('theme') || 'light';
         let healthTipsGenerated = false;
@@ -836,7 +933,7 @@
         };
 
         // Limit history to 50 tips per category to prevent storage issues
-        const MAX_HISTORY = 5000;
+        const MAX_HISTORY = 10000;
 
         // Fallback tips in case API fails to provide enough unique tips
         const fallbackTips = {
@@ -890,10 +987,11 @@
             const themeBtn = document.querySelector('.theme-toggle-btn');
             themeBtn.textContent = currentTheme === 'light' ? '☀️' : 
                                   currentTheme === 'dark' ? '🌙' : 
-                                  currentTheme === 'high-contrast' ? '⚪' : 
-                                  currentTheme === 'ocean' ? '🌊' : '🌲';
+
             showSection('home');
             initSlideshow();
+            updateSidebarImage(); // Call to display initial sidebar image
+            setInterval(updateSidebarImage, 10000); // Change image every 10 seconds
         });
 
         // Slideshow Functions
@@ -936,18 +1034,7 @@
                 document.body.setAttribute('data-theme', 'dark');
                 themeBtn.textContent = '🌙';
                 currentTheme = 'dark';
-            } else if (currentTheme === 'dark') {
-                document.body.setAttribute('data-theme', 'high-contrast');
-                themeBtn.textContent = '⚪';
-                currentTheme = 'high-contrast';
-            } else if (currentTheme === 'high-contrast') {
-                document.body.setAttribute('data-theme', 'ocean');
-                themeBtn.textContent = '🌊';
-                currentTheme = 'ocean';
-            } else if (currentTheme === 'ocean') {
-                document.body.setAttribute('data-theme', 'forest');
-                themeBtn.textContent = '🌲';
-                currentTheme = 'forest';
+
             } else {
                 document.body.removeAttribute('data-theme');
                 themeBtn.textContent = '☀️';
@@ -976,6 +1063,10 @@
 
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('onclick') === `showSection('${sectionId}')`);
+                // Ensure to load news when the news section is shown
+                if (sectionId === 'news') {
+                    fetchNewsContent();
+                }
                 if (sectionId !== 'health_tips') healthTipsGenerated = false;
             });
 
@@ -1095,6 +1186,10 @@
                             : error.message.includes('HTTP 429')
                             ? 'API rate limit exceeded. Please try again later.'
                             : `Failed to fetch data: ${error.message}`;
+                        // Add specific guidance for 426 error
+                        if (error.message.includes('HTTP 426')) {
+                            userMessage += '. This often means your NewsAPI plan does not support this endpoint, or requests from this domain are blocked. Please check NewsAPI documentation for details on "Upgrade Required" or domain whitelisting.';
+                        }
                         throw new Error(userMessage);
                     }
                     await new Promise(resolve => setTimeout(resolve, delay));
@@ -1248,13 +1343,15 @@
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
             errorDiv.textContent = message;
-            const container = document.getElementById('health-tips-text');
+            const container = document.getElementById('health-tips-text'); // Fallback to a common container if possible
             if (container) {
                 container.insertBefore(errorDiv, container.firstChild);
                 setTimeout(() => errorDiv.remove(), 5000);
             } else {
                 console.error('Cannot show error: health-tips-text container not found');
-                alert(message);
+                // As a last resort, if no container is found, log to console.
+                // Avoid using alert() in production web apps.
+                console.error(message);
             }
         }
 
@@ -1290,7 +1387,7 @@
                     Generate exactly 3 health tips for each of the following categories: nutrition, exercise, sleep, stress management, and general wellness.
                     Return the response in JSON format with the following structure:
                     {
-                        "nutrition": ["tip1", "tip2", "tip3"],
+                        "nutrition": ["tip1", "tip2", "tip2"],
                         "exercise": ["tip1", "tip2", "tip3"],
                         "sleep": ["tip1", "tip2", "tip3"],
                         "stress": ["tip1", "tip2", "tip3"],
@@ -1419,7 +1516,7 @@
             const container = document.getElementById('health-tips-text');
             if (!container) {
                 console.error('health-tips-text container not found for PDF download');
-                alert('Cannot download tips: Container not found');
+                // No alert here, error is logged.
                 return;
             }
             const cards = container.querySelectorAll('.nutrition-card, .exercise-card, .sleep-card, .stress-card, .wellness-card');
@@ -1439,7 +1536,7 @@
             });
 
             if (!textContent.trim()) {
-                alert('No health tips available to download. Please generate tips first.');
+                showError('No health tips available to download. Please generate tips first.');
                 return;
             }
 
@@ -1482,7 +1579,17 @@
                 doc.save('health_tips.pdf');
             } catch (error) {
                 console.error('PDF Generation Error:', error);
-                alert('Failed to generate PDF. Please try again.');
+                showError('Failed to generate PDF. Please try again.');
+            }
+        }
+
+        // New function to update the sidebar image
+        function updateSidebarImage() {
+            const imgElement = document.getElementById('sidebar-dynamic-image');
+            if (imgElement && config.SIDEBAR_IMAGES && config.SIDEBAR_IMAGES.length > 0) {
+                const randomIndex = Math.floor(Math.random() * config.SIDEBAR_IMAGES.length);
+                imgElement.src = config.SIDEBAR_IMAGES[randomIndex];
+                imgElement.alt = `AI/Health Image ${randomIndex + 1}`; // Update alt text dynamically
             }
         }
 
@@ -1536,6 +1643,74 @@
                 fetchGeminiText(input, 'balanced-diet-text', 'Provide detailed nutrition advice and diet plans for:'),
                 fetchVideos(`balanced diet ${input} nutrition tutorial`, 'balanced-diet-videos'),
             ]);
+        }
+
+        async function fetchNewsContent() {
+            const container = document.getElementById('news-articles-container');
+            if (!container) {
+                console.error('News articles container not found.');
+                return;
+            }
+            container.innerHTML = '<div class="loading">Loading latest healthcare news...</div>';
+
+            try {
+                // Fetch top healthcare news using GNews API
+                const gNewsUrl = `${config.NEWS_API_URL}?q=healthcare&lang=en&max=9&token=${config.NEWS_API_KEY}`;
+                
+                // IMPORTANT: If you are using a free GNews API key, it might require whitelisting the domain
+                // from which the request is made. If you continue to see errors, please check your GNews API dashboard.
+                // For local development, you might need a proxy or a paid plan.
+                if (config.NEWS_API_KEY === "e214f4d79ec144a5b0106ab37f8d8519") {
+                     container.innerHTML = '<p class="error-message">Please replace "e214f4d79ec144a5b0106ab37f8d8519" with your actual GNews API key in the config object to fetch news.</p>';
+                     return;
+                }
+
+                const data = await fetchAPI(gNewsUrl);
+
+                if (!data.articles || data.articles.length === 0) {
+                    container.innerHTML = '<p class="error-message">No healthcare news found at this time.</p>';
+                    return;
+                }
+
+                // GNews API structure has 'image' field directly for image URL
+                const articlesToDisplay = data.articles.filter(article => 
+                    article.image && 
+                    (article.image.startsWith('http://') || article.image.startsWith('https://'))
+                ).slice(0, 9); // Limit to 9 articles for a clean grid
+
+                if (articlesToDisplay.length === 0) {
+                    container.innerHTML = '<p class="error-message">No healthcare news with valid images found to display.</p>';
+                    return;
+                }
+
+                displayNews(articlesToDisplay, container);
+
+            } catch (error) {
+                console.error('GNews API Error:', error);
+                let errorMessage = `Error loading news: ${error.message}.`;
+                if (error.message.includes('HTTP 403')) {
+                    errorMessage += ' This often means your GNews API key is invalid, or the domain is not whitelisted. Please check your GNews API dashboard.';
+                } else if (error.message.includes('HTTP 429')) {
+                    errorMessage += ' You have exceeded the daily request limit for your GNews API key. Please try again tomorrow or upgrade your plan.';
+                }
+                container.innerHTML = `<p class="error-message">${errorMessage}</p>`;
+            }
+        }
+
+        function displayNews(articles, container) {
+            container.innerHTML = articles.map(article => `
+                <a href="${article.url}" target="_blank" rel="noopener noreferrer" class="news-card">
+                    <img src="${article.image}" alt="${article.title || 'News Image'}" onerror="this.onerror=null;this.src='[https://placehold.co/300x180/e0e0e0/000000?text=No+Image](https://placehold.co/300x180/e0e0e0/000000?text=No+Image)';">
+                    <div class="news-content">
+                        <h3>${article.title ? article.title.slice(0, 100) + (article.title.length > 100 ? '...' : '') : 'No Title'}</h3>
+                        <p>${article.description ? article.description.slice(0, 150) + (article.description.length > 150 ? '...' : '') : 'No description available.'}</p>
+                        <div class="news-source-date">
+                            <span>${article.source.name || 'Unknown Source'}</span>
+                            <span>${article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : 'N/A'}</span>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
         }
     </script>
 </body>
