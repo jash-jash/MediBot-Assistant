@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <meta content="MediBot Assistant provides AI-powered medical guidance, emergency response, medicine analysis, natural remedies, health tips, and balanced diet plans." name="description"/>
+  <meta content="medical assistant, AI health, emergency response, medicine analysis, natural remedies, health tips, balanced diet" name="keywords"/>
+  <meta content="MediBot Team" name="author"/>
+  <title>
+   MediBot
+  </title>
+  <link href="/favicon.png" rel="icon" type="image/png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <nav aria-label="Main navigation" class="sidebar open" id="sidebar">
+  <div class="sidebar-header">
+   <h1>
+    MediBot
+   </h1>
+   <button aria-label="Toggle theme" class="theme-toggle-btn" onclick="toggleTheme()">
+    ☀️
+   </button>
+  </div>
+  <button aria-label="Home" class="nav-btn active" onclick="showSection('home')">
+   <span>
+    🏠
+   </span>
+   Home
+  </button>
+  <button aria-label="Emergency Response" class="nav-btn" onclick="showSection('emergency')">
+   <span>
+    🚨
+   </span>
+   Emergency Response
+  </button>
+  <button aria-label="Medicine Analysis" class="nav-btn" onclick="showSection('medicine')">
+   <span>
+    💊
+   </span>
+   Medicine Analysis
+  </button>
+  <button aria-label="Natural Remedies" class="nav-btn" onclick="showSection('remedies')">
+   <span>
+    🌿
+   </span>
+   Natural Remedies
+  </button>
+  <button aria-label="Health Tips" class="nav-btn" onclick="showSection('health_tips')">
+   <span>
+    🩺
+   </span>
+   Health Tips
+  </button>
+  <button aria-label="Balanced Diet" class="nav-btn" onclick="showSection('balanced_diet')">
+   <span>
+    🍽️
+   </span>
+   Balanced Diet
+  </button>
+  <button aria-label="Healthcare News" class="nav-btn" onclick="showSection('news')">
+   <span>
+    📰
+   </span>
+   News
+  </button>
+  <button aria-label="Medicine Reminder" class="nav-btn" onclick="showSection('medicine_reminder')">
+   <span>
+    ⏰
+   </span>
+   Medicine Reminder
+  </button>
+ </nav>
+ <button aria-label="Toggle sidebar navigation" class="toggle-btn open" id="toggle-btn" onclick="toggleSidebar()">
+  &lt;
+ </button>
+ <main class="container shifted" id="main-container">
+  <section aria-labelledby="home-title" id="home">
+   <div class="hero-section">
+    <h1 class="hero-title" id="home-title">
+     MediBot-Assistant
+    </h1>
+    <p class="hero-subtitle">
+     Your professional medical companion for emergency guidance, medication analysis, natural remedies, and wellness advice.
+    </p>
+    <!-- Slideshow Container -->
+   </div>
+   <div class="slideshow-container">
+    <div class="slide">
+     <img alt="Health Image 1" src="https://placehold.co/200x150/86a8e7/ffffff?text=AI+Health" width="20"/>
+    </div>
+    <div class="slide">
+     <img alt="Health Image 2" src="https://placehold.co/200x150/feb47b/ffffff?text=Medical+Tech"/>
+    </div>
+    <div class="slide">
+     <img alt="Health Image 3" src="https://placehold.co/200x150/ff7e5f/ffffff?text=Healthcare+Innovation"/>
+    </div>
+    <div class="slideshow-nav">
+     <button class="nav-dot active" onclick="setSlide(0)">
+     </button>
+     <button class="nav-dot" onclick="setSlide(1)">
+     </button>
+     <button class="nav-dot" onclick="setSlide(2)">
+     </button>
+    </div>
+   </div>
+   <div aria-label="Feature cards" class="feature-section" role="region">
+    <div aria-label="Emergency Response feature" class="feature-card" onclick="showSection('emergency')" role="button" tabindex="0">
+     <span aria-hidden="true">
+      🚨
+     </span>
+     <h3>
+      Emergency Response
+     </h3>
+     <p>
+      Immediate AI-powered guidance for medical emergencies.
+     </p>
+    </div>
+    <div aria-label="Medicine Analysis feature" class="feature-card" onclick="showSection('medicine')" role="button" tabindex="0">
+     <span aria-hidden="true">
+      💊
+     </span>
+     <h3>
+      Medicine Analysis
+     </h3>
+     <p>
+      Detailed information on medications and their usage.
+     </p>
+    </div>
+    <div aria-label="Natural Remedies feature" class="feature-card" onclick="showSection('remedies')" role="button" tabindex="0">
+     <span aria-hidden="true">
+      🌿
+     </span>
+     <h3>
+      Natural Remedies
+     </h3>
+     <p>
+      Holistic solutions for common health concerns.
+     </p>
+    </div>
+    <div aria-label="Health Tips feature" class="feature-card" onclick="showSection('health_tips')" role="button" tabindex="0">
+     <span aria-hidden="true">
+      🩺
+     </span>
+     <h3>
+      Health Tips
+     </h3>
+     <p>
+      Expert advice on nutrition and wellness.
+     </p>
+    </div>
+    <div aria-label="Balanced Diet feature" class="feature-card" onclick="showSection('balanced_diet')" role="button" tabindex="0">
+     <span aria-hidden="true">
+      🍽️
+     </span>
+     <h3>
+      Balanced Diet
+     </h3>
+     <p>
+      Personalized nutrition plans and tips.
+     </p>
+    </div>
+   </div>
+  </section>
+  <section aria-labelledby="emergency-title" class="section" id="emergency">
+   <h2 id="emergency-title">
+    🚨Emergency Response
+   </h2>
+   <p>
+    Describe the emergency for immediate guidance and resources.
+   </p>
+   <form class="input-group" onsubmit="fetchEmergencyContent(); return false;">
+    <input aria-label="Emergency situation input" id="emergency-input" placeholder="e.g., cardiac arrest, severe burn" required="" type="text"/>
+    <button aria-label="Search emergency guidance" class="primary" type="submit">
+     Search
+    </button>
+   </form>
+   <div aria-live="polite" id="emergency-text">
+   </div>
+   <div aria-label="Emergency reference videos" class="video-grid" id="emergency-videos">
+   </div>
+  </section>
+  <section aria-labelledby="medicine-title" class="section" id="medicine">
+   <h2 id="medicine-title">
+    💊Medicine Analysis
+   </h2>
+   <p>
+    Enter a medication name for detailed information.
+   </p>
+   <form class="input-group" onsubmit="fetchMedicineContent(); return false;">
+    <input aria-label="Medication name input" id="medicine-input" placeholder="e.g., Paracetamol, Amoxicillin" required="" type="text"/>
+    <button aria-label="Search medication information" class="primary" type="submit">
+     Search
+    </button>
+   </form>
+   <div aria-live="polite" id="medicine-text">
+   </div>
+   <div aria-label="Medicine reference videos" class="video-grid" id="medicine-videos">
+   </div>
+  </section>
+  <section aria-labelledby="remedies-title" class="section" id="remedies">
+   <h2 id="remedies-title">
+    🌿Natural Remedies
+   </h2>
+   <p>
+    Describe symptoms for natural remedy suggestions.
+   </p>
+   <form class="input-group" onsubmit="fetchRemedyContent(); return false;">
+    <input aria-label="Symptoms input" id="remedies-input" placeholder="e.g., headache, sore throat" required="" type="text"/>
+    <button aria-label="Search natural remedies" class="primary" type="submit">
+     Search
+    </button>
+   </form>
+   <div aria-live="polite" id="remedies-text">
+   </div>
+   <div aria-label="Remedies reference videos" class="video-grid" id="remedies-videos">
+   </div>
+  </section>
+  <section aria-labelledby="health-tips-title" class="section" id="health_tips">
+   <h2 id="health-tips-title">
+    🌱 Health Tips
+   </h2>
+   <p>
+    Generate personalized health and wellness tips.
+   </p>
+   <br/>
+   <div class="button-group">
+    <button aria-label="Generate health tips" class="primary" id="generate-tips-btn" onclick="generateHealthTips()">
+     Generate Tips
+    </button>
+    <button aria-label="Download health tips as PDF" class="primary" disabled="" id="download-tips-btn" onclick="downloadHealthTips()">
+     Download Tips
+    </button>
+   </div>
+   <div aria-live="polite" class="health-tips-container" id="health-tips-text">
+    <div class="nutrition-card" id="nutritionTips" style="display: none;">
+     <h3 class="health-tip-title">
+      🍎 Nutrition Tips
+     </h3>
+    </div>
+    <div class="exercise-card" id="exerciseTips" style="display: none;">
+     <h3 class="health-tip-title">
+      🏋️‍♂️ Exercise Tips
+     </h3>
+    </div>
+    <div class="sleep-card" id="sleepTips" style="display: none;">
+     <h3 class="health-tip-title">
+      🛌 Sleep Tips
+     </h3>
+    </div>
+    <div class="stress-card" id="stressTips" style="display: none;">
+     <h3 class="health-tip-title">
+      🧘 Stress Management Tips
+     </h3>
+    </div>
+    <div class="wellness-card" id="wellnessNotes" style="display: none;">
+     <h3 class="health-tip-title">
+      🌟 General Wellness Notes
+     </h3>
+    </div>
+   </div>
+  </section>
+  <section aria-labelledby="balanced-diet-title" class="section" id="balanced_diet">
+   <h2 id="balanced-diet-title">
+    🍽️ Balanced Diet
+   </h2>
+   <p>
+    Enter a diet query for nutrition advice.
+   </p>
+   <form class="input-group" onsubmit="fetchBalancedDietContent(); return false;">
+    <input aria-label="Diet query input" id="balanced-diet-input" placeholder="e.g., healthy meal plan, vegan nutrition" required="" type="text"/>
+    <button aria-label="Search diet information" class="primary" type="submit">
+     Search
+    </button>
+   </form>
+   <div aria-live="polite" id="balanced-diet-text">
+   </div>
+   <div aria-label="Diet reference videos" class="video-grid" id="balanced-diet-videos">
+   </div>
+  </section>
+  <!-- New Section for Health News -->
+  <section aria-labelledby="news-title" class="section" id="news">
+   <h2 id="news-title">
+    📰 Latest Healthcare News
+   </h2>
+   <p>
+    Stay updated with the most recent news in healthcare.
+   </p>
+   <div aria-live="polite" class="news-grid" id="news-articles-container">
+    <!-- News articles will be loaded here -->
+   </div>
+  </section>
+
+  <!-- Medicine Reminder Section -->
+  <section aria-labelledby="medicine-reminder-title" class="section" id="medicine_reminder">
+   <h2 id="medicine-reminder-title">⏰ Medicine Reminder</h2>
+   <p>Set up reminders for your medications and track your doses.</p>
+   
+   <div class="reminder-type-selection">
+    <button class="reminder-type-btn active" onclick="showReminderForm('medicine')">Medicine</button>
+    <button class="reminder-type-btn" onclick="showReminderForm('syringe')">Syringe</button>
+    <button class="reminder-type-btn" onclick="showReminderForm('tonic')">Tonic</button>
+   </div>
+
+   <form id="medicine-reminder-form" class="reminder-form" onsubmit="addMedicineReminder(event)">
+    <div class="form-group">
+     <label for="medicine-name">Medicine Name:</label>
+     <input type="text" id="medicine-name" required placeholder="Enter medicine name">
+    </div>
+    
+    <div class="form-group">
+     <label for="medicine-quantity">Number of Pills/Doses:</label>
+     <input type="number" id="medicine-quantity" required min="1" placeholder="Number of pills/doses">
+    </div>
+    
+    <div class="form-group">
+     <label for="medicine-frequency">Frequency:</label>
+     <select id="medicine-frequency" required>
+      <option value="daily">Daily</option>
+      <option value="weekly">Weekly</option>
+      <option value="custom">Custom</option>
+     </select>
+    </div>
+    
+    <div class="form-group">
+     <label for="medicine-time">Time:</label>
+     <input type="time" id="medicine-time" required>
+    </div>
+    
+    <div class="form-group">
+     <label for="medicine-start-date">Start Date:</label>
+     <input type="date" id="medicine-start-date" required>
+    </div>
+    
+    <div class="form-group">
+     <label for="medicine-end-date">End Date:</label>
+     <input type="date" id="medicine-end-date" required>
+    </div>
+    
+    <div class="form-group">
+     <label for="medicine-notes">Notes:</label>
+     <textarea id="medicine-notes" placeholder="Additional notes or instructions"></textarea>
+    </div>
+    
+    <button type="submit" class="primary">Set Reminder</button>
+   </form>
+
+   <div id="reminders-list" class="reminders-list">
+    <h3>Active Reminders</h3>
+    <!-- Reminders will be listed here dynamically -->
+   </div>
+  </section>
+ </main>
+ <footer aria-label="Footer" class="app-footer shifted" id="footer">
+  <div class="footer-text">
+   <p>
+    ⚠️ MediBot provides medical information for guidance only. Always consult healthcare professionals for treatment.
+   </p>
+  </div>
+  <div class="footer-copyright">
+   <p>
+    © 2025 MediBot Assistant | All Rights Reserved
+   </p>
+  </div>
+ </footer>
+ <body>
+  <script src="script.js">
+  </script>
+ </body>
+</html>
+<!-- add one more button in the dashboard which is Medicine remainder  -->
+<!-- and add skimulgtaneulsyly in the home section Which is Medicine reminder 
+
+in that medicin remainder 
+make a form for the user for medicine remainder 
+like medicine name or synrine name 
+time 
+date like this ....
+
+
+when aptient xclicks on the Medicine remainder 
+it will ask the user use check box medicine or syringe or tanic 
+if the user selecgts medicnie it will ask medcene name no:of medicines 
+time 
+date likethis ask the for syringe and tanic 
+dose ask the patient
+
+
+
+
+
+and givin me thermyrequirwmnts -->
