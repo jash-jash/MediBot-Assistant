@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="MediBot Assistant provides AI-powered medical guidance, emergency response, medicine analysis, natural remedies, health tips, and balanced diet plans."
+    />
+    <meta
+      name="keywords"
+      content="medical assistant, AI health, emergency response, medicine analysis, natural remedies, health tips, balanced diet"
+    />
+    <meta name="author" content="MediBot Team" />
+    <title>MediBot</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+    <nav class="sidebar open" id="sidebar" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <h1>MediBot</h1>
+        <button
+          class="theme-toggle-btn"
+          onclick="toggleTheme()"
+          aria-label="Toggle theme"
+        >
+          ☀️
+        </button>
+      </div>
+
+      <button
+        class="nav-btn active"
+        onclick="showSection('home')"
+        aria-label="Home"
+      >
+        🏠 Home
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('emergency')"
+        aria-label="Emergency Response"
+      >
+        🚨 Emergency Response
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('medicine')"
+        aria-label="Medicine Analysis"
+      >
+        💊 Medicine Analysis
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('remedies')"
+        aria-label="Natural Remedies"
+      >
+        🌿 Natural Remedies
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('health_tips')"
+        aria-label="Health Tips"
+      >
+        🩺 Health Tips
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('balanced_diet')"
+        aria-label="Balanced Diet"
+      >
+        🍽️ Balanced Diet
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('news')"
+        aria-label="Healthcare News"
+      >
+        📰 News
+      </button>
+      <button
+        class="nav-btn"
+        onclick="showSection('medicine_reminder')"
+        aria-label="Medicine Reminder"
+      >
+        ⏰ Medicine Reminder
+      </button>
+    </nav>
+
+    <!-- SIDEBAR TOGGLE -->
+    <button
+      id="toggle-btn"
+      class="toggle-btn open"
+      onclick="toggleSidebar()"
+      aria-label="Toggle sidebar"
+    >
+      &lt;
+    </button>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-container" class="container shifted">
+      <!-- HOME SECTION -->
+      <section id="home">
+        <div class="hero-section">
+          <h1 class="hero-title">MediBot-Assistant</h1>
+          <p class="hero-subtitle">
+            Your professional medical companion for emergency guidance,
+            medication analysis, natural remedies, and wellness advice.
+          </p>
+        </div>
+
+        <div class="slideshow-container">
+  <div class="slide">
+    <img
+      src="https://placehold.co/600x400/86a8e7/ffffff.png?text=AI+Health"
+      alt="Health Image 1"
+    />
+  </div>
+
+  <div class="slide">
+    <img
+      src="https://placehold.co/600x400/feb47b/ffffff.png?text=Medical+Tech"
+      alt="Health Image 2"
+    />
+  </div>
+
+  <div class="slide">
+    <img
+      src="https://placehold.co/600x400/ff7e5f/ffffff.png?text=Healthcare+Innovation"
+      alt="Health Image 3"
+    />
+  </div>
+
+  <div class="slideshow-nav">
+    <button class="nav-dot active" onclick="setSlide(0)"></button>
+    <button class="nav-dot" onclick="setSlide(1)"></button>
+    <button class="nav-dot" onclick="setSlide(2)"></button>
+  </div>
+</div>
+
+
+        <div class="feature-section">
+          <div class="feature-card" onclick="showSection('emergency')">
+            🚨
+            <h3>Emergency Response</h3>
+            <p>Immediate AI-powered guidance for emergencies.</p>
+          </div>
+          <div class="feature-card" onclick="showSection('medicine')">
+            💊
+            <h3>Medicine Analysis</h3>
+            <p>Detailed information on medications.</p>
+          </div>
+          <div class="feature-card" onclick="showSection('remedies')">
+            🌿
+            <h3>Natural Remedies</h3>
+            <p>Holistic solutions for health issues.</p>
+          </div>
+          <div class="feature-card" onclick="showSection('health_tips')">
+            🩺
+            <h3>Health Tips</h3>
+            <p>Expert advice for wellness.</p>
+          </div>
+          <div class="feature-card" onclick="showSection('balanced_diet')">
+            🍽️
+            <h3>Balanced Diet</h3>
+            <p>Personalized nutrition plans.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EMERGENCY SECTION -->
+      <section id="emergency" class="section">
+        <h2>🚨 Emergency Response</h2>
+        <p>Describe the emergency for guidance.</p>
+
+        <form class="input-group" onsubmit="fetchEmergencyContent(event)">
+          <input
+            id="emergency-input"
+            type="text"
+            required
+            placeholder="e.g., cardiac arrest, severe burn"
+          />
+          <button class="primary" type="submit">Search</button>
+        </form>
+
+        <div id="emergency-text"></div>
+        <div id="emergency-videos" class="video-grid"></div>
+      </section>
+
+      <!-- MEDICINE SECTION -->
+      <section id="medicine" class="section">
+        <h2>💊 Medicine Analysis</h2>
+
+        <form class="input-group" onsubmit="fetchMedicineContent(event)">
+          <input
+            id="medicine-input"
+            type="text"
+            required
+            placeholder="e.g., Paracetamol, Amoxicillin"
+          />
+          <button class="primary" type="submit">Search</button>
+        </form>
+
+        <div id="medicine-text"></div>
+        <div id="medicine-videos" class="video-grid"></div>
+      </section>
+
+      <!-- REMEDIES SECTION -->
+      <section id="remedies" class="section">
+        <h2>🌿 Natural Remedies</h2>
+
+        <form class="input-group" onsubmit="fetchRemedyContent(event)">
+          <input
+            id="remedies-input"
+            type="text"
+            required
+            placeholder="e.g., headache, sore throat"
+          />
+          <button class="primary" type="submit">Search</button>
+        </form>
+
+        <div id="remedies-text"></div>
+        <div id="remedies-videos" class="video-grid"></div>
+      </section>
+
+      <!-- HEALTH TIPS SECTION -->
+      <section id="health_tips" class="section">
+        <h2>🌱 Health Tips</h2>
+
+        <div class="button-group">
+          <button class="primary" onclick="generateHealthTips()">
+            Generate Tips
+          </button>
+          <button
+            class="primary"
+            id="download-tips-btn"
+            disabled
+            onclick="downloadHealthTips()"
+          >
+            Download Tips
+          </button>
+        </div>
+
+        <div id="health-tips-text" class="health-tips-container"></div>
+      </section>
+
+      <!-- BALANCED DIET SECTION -->
+      <section id="balanced_diet" class="section">
+        <h2>🍽️ Balanced Diet</h2>
+
+        <form class="input-group" onsubmit="fetchBalancedDietContent(event)">
+          <input
+            id="balanced-diet-input"
+            type="text"
+            required
+            placeholder="e.g., healthy meal plan, vegan nutrition"
+          />
+          <button class="primary" type="submit">Search</button>
+        </form>
+
+        <div id="balanced-diet-text"></div>
+        <div id="balanced-diet-videos" class="video-grid"></div>
+      </section>
+
+      <!-- NEWS SECTION -->
+      <section id="news" class="section">
+        <h2>📰 Latest Healthcare News</h2>
+        <div id="news-articles-container" class="news-grid"></div>
+      </section>
+
+      <!-- MEDICINE REMINDER SECTION -->
+      <section id="medicine_reminder" class="section">
+        <h2>⏰ Medicine Reminder</h2>
+
+        <div class="reminder-type-selection">
+          <button
+            class="reminder-type-btn active"
+            onclick="showReminderForm('medicine')"
+          >
+            Medicine
+          </button>
+          <button
+            class="reminder-type-btn"
+            onclick="showReminderForm('syringe')"
+          >
+            Syringe
+          </button>
+          <button class="reminder-type-btn" onclick="showReminderForm('tonic')">
+            Tonic
+          </button>
+        </div>
+
+        <form
+          id="medicine-reminder-form"
+          class="reminder-form"
+          onsubmit="addMedicineReminder(event)"
+        >
+          <label
+            >Medicine Name:<input id="medicine-name" required type="text"
+          /></label>
+          <label
+            >Doses:<input id="medicine-quantity" type="number" min="1" required
+          /></label>
+          <label
+            >Frequency:<select id="medicine-frequency">
+              <option>Daily</option>
+              <option>Weekly</option>
+              <option>Custom</option>
+            </select></label
+          >
+          <label>Time:<input id="medicine-time" type="time" required /></label>
+          <label
+            >Start Date:<input id="medicine-start-date" type="date" required
+          /></label>
+          <label
+            >End Date:<input id="medicine-end-date" type="date" required
+          /></label>
+          <label>Notes:<textarea id="medicine-notes"></textarea></label>
+
+          <button type="submit" class="primary">Set Reminder</button>
+        </form>
+
+        <div id="reminders-list" class="reminders-list">
+          <h3>Active Reminders</h3>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer shifted" id="footer">
+      <p>
+        ⚠️ MediBot provides medical information for guidance only. Always
+        consult professionals.
+      </p>
+      <p>© 2025 MediBot Assistant | All Rights Reserved</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
