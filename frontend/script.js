@@ -1,11 +1,10 @@
 /********************************************
  * API BASE URL
  * For LOCAL testing: 127.0.0.1:5000
- * For DEPLOYMENT: replace with Render URL
+ * For DEPLOYMENT: Render backend URL
  ********************************************/
-const API_BASE = "http://127.0.0.1:5000";
-// Example after deployment:
-// const API_BASE = "https://your-backend.onrender.com";
+const API_BASE = "https://medibot-assistant-2.onrender.com";
+// LOCAL:  const API_BASE = "http://127.0.0.1:5000";
 
 /********************************************
  * CONFIG FAILSAFE
@@ -204,7 +203,7 @@ Generate output EXACTLY in the required structure.
 }
 
 /********************************************
- * DIET PLAN DETECTION
+ * PLAN DETECTION
  ********************************************/
 function isPlanRequest(query) {
   let q = query.trim().toLowerCase();
@@ -217,7 +216,7 @@ function isPlanRequest(query) {
 }
 
 /********************************************
- * UNIQUE DAY MEAL GENERATOR
+ * WEEKLY MEAL GENERATOR
  ********************************************/
 function getRandom(list) {
   return list[Math.floor(Math.random() * list.length)];
@@ -310,7 +309,7 @@ function generateWeeklyMealPlan() {
 }
 
 /********************************************
- * BALANCED DIET HANDLER
+ * SECTION HANDLERS
  ********************************************/
 async function fetchBalancedDietContent(event) {
   event.preventDefault();
@@ -327,9 +326,6 @@ async function fetchBalancedDietContent(event) {
   fetchVideos(q, "balanced-diet-videos");
 }
 
-/********************************************
- * OTHER FORM HANDLERS
- ********************************************/
 function fetchEmergencyContent(event) {
   event.preventDefault();
   const q = document.getElementById("emergency-input").value;
