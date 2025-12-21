@@ -82,17 +82,7 @@ def youtube_endpoint():
 # -----------------------------------------------------
 # 📰 NEWS Endpoint
 # -----------------------------------------------------
-@app.get("/news")
-def news_endpoint():
-    try:
-        if not NEWS_KEY:
-            return jsonify({"error": "Missing News API key"}), 400
 
-        url = f"https://gnews.io/api/v4/search?q=health&lang=en&max=10&token={NEWS_KEY}"
-
-        return jsonify(requests.get(url).json())
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 
 # -----------------------------------------------------
