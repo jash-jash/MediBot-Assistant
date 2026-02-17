@@ -6,24 +6,18 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# -----------------------------------------------------
-# 🔐 LOAD API KEYS FROM ENV VARIABLES
-# -----------------------------------------------------
-OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
-YOUTUBE_KEY = os.getenv("YOUTUBE_KEY")
-NEWS_KEY = os.getenv("NEWS_KEY")
-
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
-
 # -----------------------------------------------------
-# 🤖 AI ENDPOINT (OpenRouter)
+# 🤖 FAST AI ENDPOINT
 # -----------------------------------------------------
 @app.post("/openai")
 def openrouter_chat():
     try:
         data = request.get_json()
         prompt = data.get("prompt", "")
+
+        OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
 
         if not OPENROUTER_KEY:
             return jsonify({"error": "Missing OpenRouter API key"}), 400
@@ -33,19 +27,36 @@ def openrouter_chat():
             "Content-Type": "application/json",
         }
 
+        # ⚡ SPEED OPTIMIZED PAYLOAD
         payload = {
-            "model": "meta-llama/llama-3.2-3b-instruct:free",
+            "model": "mistralai/mistral-7b-instruct",  # faster model
             "messages": [
-                {"role": "system", "content": "Respond in strict medical structured format."},
+                {
+                    "role": "system",
+                    "content": "Respond in strict medical structured format."
+                },
                 {"role": "user", "content": prompt},
             ],
-            "max_tokens": 1500,
-            "temperature": 0.4,
+            "max_tokens": 500,      # reduced from 1500 → faster
+            "temperature": 0.2,     # lower = faster
         }
 
-        response = requests.post(OPENROUTER_URL, headers=headers, json=payload).json()
+        response_raw = requests.post(
+            OPENROUTER_URL,
+            headers=headers,
+            json=payload,
+            timeout=15  # prevents long waiting
+        )
 
-        if "choices" not in response:
+        if response_raw.status_code != 200:
+            return jsonify({
+                "error": "OpenRouter HTTP error",
+                "details": response_raw.text
+            }), 500
+
+        response = response_raw.json()
+
+        if "choices" not in response or not response["choices"]:
             return jsonify({
                 "error": "OpenRouter returned no choices",
                 "details": response
@@ -59,11 +70,12 @@ def openrouter_chat():
 
 
 # -----------------------------------------------------
-# 📺 YouTube Endpoint
+# 📺 YOUTUBE ENDPOINT
 # -----------------------------------------------------
 @app.get("/youtube")
 def youtube_endpoint():
     try:
+        YOUTUBE_KEY = os.getenv("YOUTUBE_KEY")
         query = request.args.get("q", "")
 
         if not YOUTUBE_KEY:
@@ -71,18 +83,21 @@ def youtube_endpoint():
 
         url = (
             "https://www.googleapis.com/youtube/v3/search?"
-            f"part=snippet&type=video&maxResults=5&q={query}&key={YOUTUBE_KEY}"
+            f"part=snippet&type=video&maxResults=3&q={query}&key={YOUTUBE_KEY}"
         )
 
-        return jsonify(requests.get(url).json())
+        response = requests.get(url, timeout=10)
+
+        if response.status_code != 200:
+            return jsonify({
+                "error": "YouTube API error",
+                "details": response.text
+            }), 500
+
+        return jsonify(response.json())
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
-# -----------------------------------------------------
-# 📰 NEWS Endpoint
-# -----------------------------------------------------
-
 
 
 # -----------------------------------------------------
